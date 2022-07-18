@@ -1,6 +1,5 @@
 // var express = require("express");
 import express from 'express';
-// const getJWT = require("../utils/webex/jwt");
 import generateJWT from '../utils/webex/generate-jwt.js';
 import getPersonID from '../utils/webex/person-details.js';
 import createRoom from '../utils/webex/create-room.js';
@@ -16,6 +15,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/virtual-nurse-request', async function (req, res) {
   console.info(new Date().toUTCString(), req.body);
+  const roomId = createRoom(process.env.WEBEX_TEAM_ID);
   const getNurseLink = (type, roomId) =>
     generateJWT(type)
       .then((r) => r.json())
@@ -23,8 +23,6 @@ router.post('/virtual-nurse-request', async function (req, res) {
       .then(([accessToken, personId]) =>
         Promise.all([accessToken, createMembership(personId, roomId), createResponseLink(accessToken, roomId)])
       );
-
-  const roomId = createRoom(process.env.WEBEX_TEAM_ID);
 
   const virtualNurseLink = roomId
     .then((s) => getNurseLink('Virtual Nurse', s))
@@ -36,9 +34,9 @@ router.post('/virtual-nurse-request', async function (req, res) {
   return Promise.all([virtualNurseLink, gradNurseLink])
     .then(([linkResponse, _]) => res.json({ redirect: linkResponse }))
     .catch(async (e) => {
-      console.log(e);
-      console.log(await e.json());
-      res.status(500).json({ error: e });
+      console.error(await e.json());
+      
+      return res.status(500).json({ error: e });
     });
 });
 
