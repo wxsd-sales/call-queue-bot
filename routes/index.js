@@ -1,4 +1,3 @@
-// var express = require("express");
 import express from 'express';
 import generateJWT from '../utils/webex/generate-jwt.js';
 import getPersonID from '../utils/webex/person-details.js';
@@ -6,16 +5,15 @@ import createRoom from '../utils/webex/create-room.js';
 import createMembership from '../utils/webex/create-membership.js';
 import createResponseLink from '../utils/webex/create-response-link.js';
 import sendSoapboxRequest from '../utils/webex/send-soapbox-request.js';
+
 const router = express.Router();
 
-/* GET users listing. */
 router.get('/', function (req, res, next) {
   res.send('respond with a resource');
 });
 
 router.post('/virtual-nurse-request', async function (req, res) {
   console.info(new Date().toUTCString(), req.body);
-  const roomId = createRoom(process.env.WEBEX_TEAM_ID);
   const getNurseLink = (type, roomId) =>
     generateJWT(type)
       .then((r) => r.json())
@@ -23,7 +21,7 @@ router.post('/virtual-nurse-request', async function (req, res) {
       .then(([accessToken, personId]) =>
         Promise.all([accessToken, createMembership(personId, roomId), createResponseLink(accessToken, roomId)])
       );
-
+  const roomId = createRoom(process.env.WEBEX_TEAM_ID);
   const virtualNurseLink = roomId
     .then((s) => getNurseLink('Virtual Nurse', s))
     .then(([accessToken, membership, responseLink]) => responseLink);
