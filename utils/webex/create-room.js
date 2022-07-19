@@ -1,9 +1,8 @@
 import fetch from 'node-fetch';
 import handleResponse from '../handle-response.js';
 
-function createRoom(accessToken, title = new Date()) {
-  const body = { title };
-  console.log('create room');
+function createRoom(teamId, title = 'Nurse Support ' + new Date()) {
+  const body = { title, teamId };
   return fetch(process.env.WEBEX_API_URL + '/rooms', {
     headers: {
       'Authorization': 'Bearer ' + process.env.WEBEX_ACCESS_TOKEN,

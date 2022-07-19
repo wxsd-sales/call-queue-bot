@@ -1,10 +1,11 @@
 import fetch from 'node-fetch';
 import handleResponse from '../handle-response.js';
 
-function getPersonID() {
+function getPersonID(accessToken) {
   return fetch(process.env.WEBEX_API_URL + '/people/me', {
     headers: {
-      Authorization: 'Bearer ' + process.env.WEBEX_ACCESS_TOKEN
+      'Authorization': 'Bearer ' + accessToken,
+      'Content-Type': 'application/json'
     },
     method: 'GET'
   })

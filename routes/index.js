@@ -19,7 +19,7 @@ router.post('/virtual-nurse-request', async function (req, res) {
   const getNurseLink = (type, roomId) =>
     generateJWT(type)
       .then((r) => r.json())
-      .then((r) => Promise.all([r.token, getPersonID()]))
+      .then((r) => Promise.all([r.token, getPersonID(r.token)]))
       .then(([accessToken, personId]) =>
         Promise.all([accessToken, createMembership(personId, roomId), createResponseLink(accessToken, roomId)])
       );
@@ -27,10 +27,10 @@ router.post('/virtual-nurse-request', async function (req, res) {
   const roomId = createRoom(process.env.WEBEX_TEAM_ID);
 
   const virtualNurseLink = roomId
-    .then((s) => getNurseLink('Virtual Nurse', s))
+    .then((s) => getNurseLink(req.body.labels ? req.body.labels.responder : 'Virtual Nurse', s))
     .then(([accessToken, membership, responseLink]) => responseLink);
   const gradNurseLink = roomId
-    .then((s) => getNurseLink('Grad Nurse', s))
+    .then((s) => getNurseLink(req.body.labels ? req.body.labels.requester : 'Grad Nurse', s))
     .then(([accessToken, membership, responseLink]) => sendSoapboxRequest(req.body.guid, responseLink));
 
   return Promise.all([virtualNurseLink, gradNurseLink])

@@ -16,7 +16,8 @@ function generateJWT(name) {
 
   return fetch(process.env.WEBEX_API_URL + '/jwt/login', {
     headers: {
-      Authorization: 'Bearer ' + token
+      'Authorization': 'Bearer ' + token,
+      'Content-Type': 'application/json'
     },
     method: 'POST'
   }).then((r) => handleResponse(r));
