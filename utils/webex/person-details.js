@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 import handleResponse from '../handle-response.js';
 
-function getPersonID(accessToken) {
+function getPersonId(accessToken) {
   return fetch(process.env.WEBEX_API_URL + '/people/me', {
     headers: {
       'Authorization': 'Bearer ' + accessToken,
@@ -14,4 +14,4 @@ function getPersonID(accessToken) {
     .then((r) => r.id);
 }
 
-export default getPersonID;
+export default getPersonId;

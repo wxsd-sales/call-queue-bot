@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import uuid from 'uuid';
 import handleResponse from '../handle-response.js';
 
-function generateJWT(name) {
+function generateJwt(name) {
   const payload = {
     sub: 'guest-user' + uuid.v1(),
     name,
@@ -23,4 +23,4 @@ function generateJWT(name) {
   }).then((r) => handleResponse(r));
 }
 
-export default generateJWT;
+export default generateJwt;
