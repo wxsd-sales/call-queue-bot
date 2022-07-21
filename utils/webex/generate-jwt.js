@@ -1,11 +1,11 @@
 import fetch from 'node-fetch';
 import jwt from 'jsonwebtoken';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import handleResponse from '../handle-response.js';
 
 function generateJwt(name) {
   const payload = {
-    sub: 'guest-user' + uuid.v1(),
+    sub: 'guest-user' + uuidv4(),
     name,
     iss: process.env.WEBEX_ORG_ID
   };
