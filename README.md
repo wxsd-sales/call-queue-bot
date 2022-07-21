@@ -53,8 +53,6 @@ WEBEX_TEAM_ID=
 WEBEX_JWT_SECRET=
 PORT=
 ```
-
-Review and follow the [Quickstart: Register an application with the Microsoft identity platform](https://docs.microsoft.com/en-us/azure/active-directory/develop/quickstart-register-app#register-an-application)
 Note:
 
 1. You will need to provide a PORT for this to run locally, if left empty, it runs on port 3000
