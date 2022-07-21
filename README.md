@@ -11,10 +11,11 @@ curl --location --request POST 'https://mindy.wbx.ninja/virtual-nurse-request' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "guid":"123",
-    "labels":{
+    "labels":
+    {
         "responder":"Responder Nurse",
         "requester":"Requester Nurse"
-            }
+    }
 }'
 ```
 
@@ -23,7 +24,8 @@ and the response contains the response URL, which looks like:
 ```
 {
     "redirect": "https://wxsd.wbx.ninja/guest?headerToggle=false&destination=Y2lzY29zcGFyazovL3VzL1JPT00vNWQxYjU0MTAtMDg2My0xMWVkLTkzZDItOTllNWQ0Mm&userType=licensed&token=YTFlM2Q3NjQtMDYxMC00YzM1LWFjODktNDNlOWM1OTc5MGRlNTk5ZTA5NmEtMTU5_PF84_578771dd-81f7-42d6-9dbb"
-    }
+}
+
 ```
 
 ### Setup
