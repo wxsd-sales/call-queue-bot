@@ -23,10 +23,10 @@ router.post('/virtual-nurse-request', async function (req, res) {
       );
   const roomId = createRoom(process.env.WEBEX_TEAM_ID);
   const virtualNurseLink = roomId
-    .then((s) => getNurseLink(req.body.labels ? req.body.labels.responder : 'Virtual Nurse', s))
+    .then((s) => getNurseLink(req.body.labels ? req.body.labels.responder : 'Responder', s))
     .then(([accessToken, membership, responseLink]) => responseLink);
   const gradNurseLink = roomId
-    .then((s) => getNurseLink(req.body.labels ? req.body.labels.requester : 'Grad Nurse', s))
+    .then((s) => getNurseLink(req.body.labels ? req.body.labels.requester : 'Requester', s))
     .then(([accessToken, membership, responseLink]) => sendSoapboxRequest(req.body.guid, responseLink));
 
   return Promise.all([virtualNurseLink, gradNurseLink])
