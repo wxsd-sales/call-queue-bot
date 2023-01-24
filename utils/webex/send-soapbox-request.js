@@ -1,8 +1,13 @@
 import fetch from 'node-fetch';
 import handleResponse from '../handle-response.js';
 
-function sendSoapboxRequest(guid, link) {
-  const body = { room: guid, data: { event: 'meeting-link', payload: link } };
+function sendSoapboxRequest(isSipAddress, guid, link, accessToken) {
+  var body;
+  if (isSipAddress) {
+    body = { room: guid, data: { event: 'room-sip-address', payload: link, guestToken: accessToken } };
+  } else {
+    body = { room: guid, data: { event: 'meeting-link', payload: link } };
+  }
 
   return fetch(process.env.SOAPBOX_API_URL + '/message', {
     headers: {
