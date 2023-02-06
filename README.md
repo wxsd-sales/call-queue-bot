@@ -1,10 +1,10 @@
 # Mindy Bot (Out)
 
-Mindy Bot Out, gets a post request once the responder starts a session. On getting the post request, Mindy Bot creates a new space, generates JWT token to both requester and responder, adds requester and responder to the space created and generate a response link and send it as the post resquest response and also to the soap box as a request.
+Mindy Bot Out, gets a post request once the responder starts a session. On getting the post request and based on the post request, if the request URL is '/virtual-nurse-request', Mindy Bot creates a new space, generates JWT token to both requester and responder, adds requester and responder to the space created and generate a response link and send it as the post resquest response and also to the soap box as a request. But if the request URL is '/virtual-nurse-sip-address-request', Mindy Bot creates a new space, generates JWT token to both requester and responder, adds requester and responder to the space created, gets the SIP Address for the room, sends the SIP Address as a response and also sends a soapbox request.
 
 ### Usage
 
-One can use the Mindy Bot by sending a post request to
+One can use the Mindy Bot by sending a post request to:
 
 ```
 curl --location --request POST 'https://mindy.wbx.ninja/virtual-nurse-request' \
@@ -26,6 +26,29 @@ and the response contains the response URL, which looks like:
     "redirect": "https://wxsd.wbx.ninja/guest?headerToggle=false&destination=Y2lzY29zcGFyazovL3VzL1JPT00vNWQxYjU0MTAtMDg2My0xMWVkLTkzZDItOTllNWQ0Mm&userType=licensed&token=YTFlM2Q3NjQtMDYxMC00YzM1LWFjODktNDNlOWM1OTc5MGRlNTk5ZTA5NmEtMTU5_PF84_578771dd-81f7-42d6-9dbb"
 }
 
+```
+For the SIP Address usecase, one can send the request to:
+
+```
+curl --location --request POST 'https://mindy.wbx.ninja/virtual-nurse-sip-address-request' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+"guid": "123",
+"labels":
+{
+"responder":"Responder Nurse",
+"requester":"Requester Nurse"
+}
+}'
+```
+
+and the response contains SIP address and host token which looks like:
+
+```
+{
+"sipAddress": "88719275725@meet.ciscospark.com",
+"hostToken": "OTU5ZGFlMzktMTQ4Mi00YzFkLTg2Y2YtMWFjOTZmZjI1MzRhMTZiOTQ0OTItMGRm_PF84_578771dd-81f7-42d6-9dbb-e1f9f2afe567"
+}
 ```
 
 ### Setup
