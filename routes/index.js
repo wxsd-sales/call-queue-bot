@@ -65,4 +65,19 @@ router.post('/virtual-nurse-sip-address-request', async function (req, res) {
     });
 });
 
+router.post('/issue-token', async function (req, res) {
+  console.info(new Date().toUTCString(), req.body);
+  const getAccessToken = generateJwt(req.body ? req.body.name : 'User')
+    .then((r) => r.json())
+    .then((r) => r.token);
+
+  return getAccessToken
+    .then((accessToken) => res.json({ accessToken: accessToken }))
+    .catch(async (e) => {
+      console.error(await e.json());
+
+      return res.status(500).json({ error: e });
+    });
+});
+
 export default router;
