@@ -1,7 +1,14 @@
 # Mindy Bot (Out)
 
+Welcome to our WXSD DEMO Repo! <!-- Keep this here --> 
+
 Mindy Bot Out, gets a post request once the responder starts a session. On getting the post request and based on the post request, if the request URL is '/virtual-nurse-request', Mindy Bot creates a new space, generates JWT token to both requester and responder, adds requester and responder to the space created and generate a response link and send it as the post resquest response and also to the soap box as a request. But if the request URL is '/virtual-nurse-sip-address-request', Mindy Bot creates a new space, generates JWT token to both requester and responder, adds requester and responder to the space created, gets the SIP Address for the room, sends the SIP Address as a response and also sends a soapbox request.
 
+
+<!-- Keep the following here -->  
+ *_Everything included is for demo and Proof of Concept purposes only. Your use of the site is solely at your own risk. This site may contain links to third party content, which we do not warrant, endorse, or assume liability for. These demos are for Cisco Webex usecases, but are not Official Cisco Webex Branded demos._
+ 
+ 
 ### Usage
 
 One can use the Mindy Bot by sending a post request to:
