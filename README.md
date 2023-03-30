@@ -30,7 +30,7 @@ and the response contains the response URL, which looks like:
 
 ```
 {
-    "redirect": "https://wxsd.wbx.ninja/guest?headerToggle=false&destination=Y2lzY29zcGFyazovL3VzL1JPT00vNWQxYjU0MTAtMDg2My0xMWVkLTkzZDItOTllNWQ0Mm&userType=licensed&token=YTFlM2Q3NjQtMDYxMC00YzM1LWFjODktNDNlOWM1OTc5MGRlNTk5ZTA5NmEtMTU5_PF84_578771dd-81f7-42d6-9dbb"
+    "redirect": "https://wxsd.wbx.ninja/guest?headerToggle=false&destination=DESTINATION&userType=licensed&token=ACCESS_TOKEN"
 }
 
 ```
@@ -53,10 +53,28 @@ and the response contains SIP address and host token which looks like:
 
 ```
 {
-"sipAddress": "88719275725@meet.ciscospark.com",
-"hostToken": "OTU5ZGFlMzktMTQ4Mi00YzFkLTg2Y2YtMWFjOTZmZjI1MzRhMTZiOTQ0OTItMGRm_PF84_578771dd-81f7-42d6-9dbb-e1f9f2afe567"
+"sipAddress": "*@meet.ciscospark.com",
+"hostToken": ""
 }
 ```
+For getting the access token of the guest user, one can send the request to:
+
+```
+curl --location --request POST 'https://mindy.wbx.ninja/issue-token' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name":""
+}' 
+```
+
+and the response contains access token which looks like:
+
+```
+{
+    "accessToken": "ACCESS_TOKEN"
+}
+```
+
 
 ### Setup
 
